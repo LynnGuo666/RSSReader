@@ -196,99 +196,104 @@ export default function DashboardPage() {
         <div
           className="hidden md:block apple-card overflow-hidden flex-shrink-0 transition-all duration-300 ease-in-out"
           style={{
-            width: immersiveMode ? (showFeedList ? '288px' : '0px') : '288px',
-            opacity: immersiveMode ? (showFeedList ? 1 : 0) : 1,
-            transform: immersiveMode ? (showFeedList ? 'translateX(0)' : 'translateX(-100%)') : 'translateX(0)',
+            width: immersiveMode ? (showFeedList ? '288px' : '48px') : '288px',
             position: immersiveMode ? 'absolute' : 'relative',
-            left: immersiveMode ? '12px' : 'auto',
+            left: immersiveMode ? '0' : 'auto',
             top: immersiveMode ? '12px' : 'auto',
             bottom: immersiveMode ? '12px' : 'auto',
             zIndex: immersiveMode ? 20 : 'auto',
-            pointerEvents: immersiveMode && !showFeedList ? 'none' : 'auto',
           }}
           onMouseEnter={() => immersiveMode && setShowFeedList(true)}
           onMouseLeave={() => immersiveMode && setShowFeedList(false)}
         >
-          <FeedList
-            onSelectFeed={setSelectedFeedId}
-            selectedFeedId={selectedFeedId}
-          />
+          <div className="h-full flex">
+            {/* Visible Edge Tab */}
+            {immersiveMode && (
+              <div
+                className="flex-shrink-0 flex flex-col items-center justify-center gap-3 py-6"
+                style={{
+                  width: '48px',
+                  borderRight: '1px solid var(--apple-separator)',
+                  background: 'var(--apple-card-bg)',
+                }}
+              >
+                <BookMarked size={20} style={{ color: 'var(--apple-blue)' }} />
+                <span style={{
+                  color: 'var(--apple-text-secondary)',
+                  fontSize: '12px',
+                  fontWeight: 500,
+                  writingMode: 'vertical-rl',
+                  textOrientation: 'mixed'
+                }}>
+                  Feeds
+                </span>
+              </div>
+            )}
+            {/* Content */}
+            <div className="flex-1 overflow-hidden">
+              <FeedList
+                onSelectFeed={setSelectedFeedId}
+                selectedFeedId={selectedFeedId}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Desktop Middle - Article List */}
         <div
           className="hidden md:block apple-card overflow-hidden flex-shrink-0 transition-all duration-300 ease-in-out"
           style={{
-            width: immersiveMode ? (showArticleList ? '384px' : '0px') : '384px',
-            opacity: immersiveMode ? (showArticleList ? 1 : 0) : 1,
-            transform: immersiveMode ? (showArticleList ? 'translateX(0)' : 'translateX(-100%)') : 'translateX(0)',
+            width: immersiveMode ? (showArticleList ? '384px' : '48px') : '384px',
             position: immersiveMode ? 'absolute' : 'relative',
-            left: immersiveMode ? '12px' : 'auto',
+            left: immersiveMode ? (showFeedList ? '288px' : '48px') : 'auto',
             top: immersiveMode ? '12px' : 'auto',
             bottom: immersiveMode ? '12px' : 'auto',
             zIndex: immersiveMode ? 19 : 'auto',
-            pointerEvents: immersiveMode && !showArticleList ? 'none' : 'auto',
           }}
           onMouseEnter={() => immersiveMode && setShowArticleList(true)}
           onMouseLeave={() => immersiveMode && setShowArticleList(false)}
         >
-          <ArticleList
-            feedId={selectedFeedId}
-            onSelectArticle={setSelectedArticle}
-            selectedArticleId={selectedArticle?.id || null}
-          />
+          <div className="h-full flex">
+            {/* Visible Edge Tab */}
+            {immersiveMode && (
+              <div
+                className="flex-shrink-0 flex flex-col items-center justify-center gap-3 py-6"
+                style={{
+                  width: '48px',
+                  borderRight: '1px solid var(--apple-separator)',
+                  background: 'var(--apple-card-bg)',
+                }}
+              >
+                <FileText size={20} style={{ color: 'var(--apple-blue)' }} />
+                <span style={{
+                  color: 'var(--apple-text-secondary)',
+                  fontSize: '12px',
+                  fontWeight: 500,
+                  writingMode: 'vertical-rl',
+                  textOrientation: 'mixed'
+                }}>
+                  Articles
+                </span>
+              </div>
+            )}
+            {/* Content */}
+            <div className="flex-1 overflow-hidden">
+              <ArticleList
+                feedId={selectedFeedId}
+                onSelectArticle={setSelectedArticle}
+                selectedArticleId={selectedArticle?.id || null}
+              />
+            </div>
+          </div>
         </div>
-
-        {/* Floating Buttons in Immersive Mode */}
-        {immersiveMode && (
-          <>
-            {/* Feed List Toggle */}
-            <button
-              onClick={() => setShowFeedList(!showFeedList)}
-              onMouseEnter={() => setShowFeedList(true)}
-              className="absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all z-30 apple-card"
-              style={{
-                opacity: showFeedList ? 0 : 0.7,
-                transform: showFeedList ? 'translateX(-100px)' : 'translateY(-50%)',
-                pointerEvents: showFeedList ? 'none' : 'auto',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.opacity = '1';
-              }}
-              onMouseOut={(e) => {
-                if (!showFeedList) e.currentTarget.style.opacity = '0.7';
-              }}
-            >
-              <BookMarked size={20} style={{ color: 'var(--apple-blue)' }} />
-            </button>
-
-            {/* Article List Toggle */}
-            <button
-              onClick={() => setShowArticleList(!showArticleList)}
-              onMouseEnter={() => setShowArticleList(true)}
-              className="absolute left-20 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all z-30 apple-card"
-              style={{
-                opacity: showArticleList ? 0 : 0.7,
-                transform: showArticleList ? 'translateX(-100px)' : 'translateY(-50%)',
-                pointerEvents: showArticleList ? 'none' : 'auto',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.opacity = '1';
-              }}
-              onMouseOut={(e) => {
-                if (!showArticleList) e.currentTarget.style.opacity = '0.7';
-              }}
-            >
-              <FileText size={20} style={{ color: 'var(--apple-blue)' }} />
-            </button>
-          </>
-        )}
 
         {/* Right - Article Reader */}
         <div
           className="flex-1 apple-card overflow-hidden transition-all duration-300 ease-in-out"
           style={{
-            marginLeft: immersiveMode ? '0' : '0',
+            marginLeft: immersiveMode
+              ? `${(showFeedList ? 288 : 48) + (showArticleList ? 384 : 48) + 12}px`
+              : '0',
           }}
         >
           <ArticleReader
