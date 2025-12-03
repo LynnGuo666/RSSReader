@@ -7,7 +7,7 @@ import FeedList from '@/components/FeedList';
 import ArticleList from '@/components/ArticleList';
 import ArticleReader from '@/components/ArticleReader';
 import type { Article } from '@/types';
-import { Newspaper, LogOut, Maximize2, Minimize2, BookMarked, FileText, Sun, Moon, Monitor } from 'lucide-react';
+import { Newspaper, LogOut, Maximize2, Minimize2, BookMarked, FileText, Sun, Moon, Monitor, Menu, X, BookOpen } from 'lucide-react';
 import { useTheme } from '@/lib/useTheme';
 
 export default function DashboardPage() {
@@ -19,6 +19,9 @@ export default function DashboardPage() {
   const [immersiveMode, setImmersiveMode] = useState(false);
   const [showFeedList, setShowFeedList] = useState(false);
   const [showArticleList, setShowArticleList] = useState(false);
+  const [mobileView, setMobileView] = useState<'feeds' | 'articles' | 'reader'>('feeds');
+  const [mobileFeedDrawerOpen, setMobileFeedDrawerOpen] = useState(false);
+  const [mobileArticleDrawerOpen, setMobileArticleDrawerOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
   const cycleTheme = () => {
@@ -77,16 +80,24 @@ export default function DashboardPage() {
       }}>
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileFeedDrawerOpen(true)}
+              className="md:hidden apple-button-secondary flex items-center justify-center"
+              style={{ padding: '8px', minWidth: '40px' }}
+            >
+              <Menu size={20} />
+            </button>
             <Newspaper size={24} style={{ color: 'var(--apple-blue)' }} />
             <h1 className="text-xl font-semibold" style={{ color: 'var(--apple-text)' }}>
               RSS Reader
             </h1>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <button
               onClick={cycleTheme}
               className="apple-button-secondary flex items-center gap-2"
-              style={{ padding: '8px 16px', fontSize: '14px' }}
+              style={{ padding: '8px 12px', fontSize: '14px' }}
               title={`Theme: ${getThemeLabel()}`}
             >
               {getThemeIcon()}
@@ -94,7 +105,7 @@ export default function DashboardPage() {
             </button>
             <button
               onClick={() => setImmersiveMode(!immersiveMode)}
-              className="apple-button-secondary flex items-center gap-2"
+              className="hidden md:flex apple-button-secondary items-center gap-2"
               style={{ padding: '8px 16px', fontSize: '14px' }}
               title={immersiveMode ? 'Exit Immersive Mode' : 'Enter Immersive Mode'}
             >
@@ -107,7 +118,7 @@ export default function DashboardPage() {
             <button
               onClick={handleLogout}
               className="apple-button-secondary flex items-center gap-2"
-              style={{ padding: '8px 16px', fontSize: '14px' }}
+              style={{ padding: '8px 12px', fontSize: '14px' }}
             >
               <LogOut size={16} />
               <span className="hidden md:inline">Sign Out</span>
@@ -116,11 +127,74 @@ export default function DashboardPage() {
         </div>
       </header>
 
+      {/* Mobile Overlay */}
+      <div
+        className={`mobile-overlay md:hidden ${mobileFeedDrawerOpen || mobileArticleDrawerOpen ? 'active' : ''}`}
+        onClick={() => {
+          setMobileFeedDrawerOpen(false);
+          setMobileArticleDrawerOpen(false);
+        }}
+      />
+
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden gap-3 p-3 relative">
-        {/* Sidebar - Feed List */}
+        {/* Mobile Feed Drawer */}
+        <div className={`mobile-drawer md:hidden ${mobileFeedDrawerOpen ? 'active' : ''}`}>
+          <div className="p-4 flex items-center justify-between" style={{ borderBottom: '1px solid var(--apple-separator)' }}>
+            <h2 className="text-lg font-semibold" style={{ color: 'var(--apple-text)' }}>Feeds</h2>
+            <button
+              onClick={() => setMobileFeedDrawerOpen(false)}
+              className="apple-button-secondary"
+              style={{ padding: '8px', minWidth: '40px' }}
+            >
+              <X size={20} />
+            </button>
+          </div>
+          <FeedList
+            onSelectFeed={(feedId) => {
+              setSelectedFeedId(feedId);
+              setMobileFeedDrawerOpen(false);
+              setMobileArticleDrawerOpen(true);
+            }}
+            selectedFeedId={selectedFeedId}
+          />
+        </div>
+
+        {/* Mobile Article Drawer */}
+        <div className={`mobile-drawer md:hidden ${mobileArticleDrawerOpen ? 'active' : ''}`}>
+          <div className="p-4 flex items-center justify-between" style={{ borderBottom: '1px solid var(--apple-separator)' }}>
+            <button
+              onClick={() => {
+                setMobileArticleDrawerOpen(false);
+                setMobileFeedDrawerOpen(true);
+              }}
+              className="apple-button-secondary flex items-center gap-2"
+              style={{ padding: '8px 12px' }}
+            >
+              <BookMarked size={16} />
+              <span>Feeds</span>
+            </button>
+            <button
+              onClick={() => setMobileArticleDrawerOpen(false)}
+              className="apple-button-secondary"
+              style={{ padding: '8px', minWidth: '40px' }}
+            >
+              <X size={20} />
+            </button>
+          </div>
+          <ArticleList
+            feedId={selectedFeedId}
+            onSelectArticle={(article) => {
+              setSelectedArticle(article);
+              setMobileArticleDrawerOpen(false);
+            }}
+            selectedArticleId={selectedArticle?.id || null}
+          />
+        </div>
+
+        {/* Desktop Sidebar - Feed List */}
         <div
-          className="apple-card overflow-hidden flex-shrink-0 transition-all duration-300 ease-in-out"
+          className="hidden md:block apple-card overflow-hidden flex-shrink-0 transition-all duration-300 ease-in-out"
           style={{
             width: immersiveMode ? (showFeedList ? '288px' : '0px') : '288px',
             opacity: immersiveMode ? (showFeedList ? 1 : 0) : 1,
@@ -141,9 +215,9 @@ export default function DashboardPage() {
           />
         </div>
 
-        {/* Middle - Article List */}
+        {/* Desktop Middle - Article List */}
         <div
-          className="apple-card overflow-hidden flex-shrink-0 transition-all duration-300 ease-in-out"
+          className="hidden md:block apple-card overflow-hidden flex-shrink-0 transition-all duration-300 ease-in-out"
           style={{
             width: immersiveMode ? (showArticleList ? '384px' : '0px') : '384px',
             opacity: immersiveMode ? (showArticleList ? 1 : 0) : 1,
@@ -221,6 +295,45 @@ export default function DashboardPage() {
             article={selectedArticle}
             onClose={() => setSelectedArticle(null)}
           />
+        </div>
+      </div>
+
+      {/* Mobile Bottom Navigation */}
+      <div className="md:hidden apple-card" style={{
+        borderRadius: 0,
+        borderTop: '1px solid var(--apple-separator)',
+        padding: '8px 0'
+      }}>
+        <div className="flex justify-around items-center">
+          <button
+            onClick={() => setMobileFeedDrawerOpen(true)}
+            className="flex flex-col items-center gap-1 px-4 py-2"
+            style={{ color: 'var(--apple-blue)' }}
+          >
+            <BookMarked size={24} />
+            <span style={{ fontSize: '11px', fontWeight: 500 }}>Feeds</span>
+          </button>
+          <button
+            onClick={() => setMobileArticleDrawerOpen(true)}
+            className="flex flex-col items-center gap-1 px-4 py-2"
+            style={{ color: 'var(--apple-blue)' }}
+          >
+            <FileText size={24} />
+            <span style={{ fontSize: '11px', fontWeight: 500 }}>Articles</span>
+          </button>
+          {selectedArticle && (
+            <button
+              onClick={() => {
+                setMobileFeedDrawerOpen(false);
+                setMobileArticleDrawerOpen(false);
+              }}
+              className="flex flex-col items-center gap-1 px-4 py-2"
+              style={{ color: 'var(--apple-blue)' }}
+            >
+              <BookOpen size={24} />
+              <span style={{ fontSize: '11px', fontWeight: 500 }}>Reading</span>
+            </button>
+          )}
         </div>
       </div>
     </div>

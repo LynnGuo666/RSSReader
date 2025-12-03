@@ -53,8 +53,8 @@ export default function LoginPage() {
 
   return (
     <div className="flex items-center justify-center min-h-screen" style={{ background: 'var(--apple-gray)' }}>
-      <div className="w-full max-w-md px-6">
-        <div className="apple-card p-8">
+      <div className="w-full max-w-md px-4 md:px-6">
+        <div className="apple-card p-6 md:p-8">
           {/* Logo/Icon */}
           <div className="flex justify-center mb-6">
             <div className="w-20 h-20 rounded-full flex items-center justify-center"
@@ -63,7 +63,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <h1 className="text-3xl font-semibold text-center mb-2" style={{ color: 'var(--apple-text)' }}>
+          <h1 className="text-2xl md:text-3xl font-semibold text-center mb-2" style={{ color: 'var(--apple-text)' }}>
             RSS Reader
           </h1>
           <p className="text-center mb-8" style={{ color: 'var(--apple-text-tertiary)', fontSize: '15px' }}>

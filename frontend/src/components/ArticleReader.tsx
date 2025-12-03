@@ -133,10 +133,10 @@ export default function ArticleReader({ article, onClose }: ArticleReaderProps) 
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
-        <article className="max-w-3xl mx-auto p-8">
+        <article className="max-w-3xl mx-auto p-4 md:p-8">
           {/* Title */}
           <h1
-            className="text-3xl font-bold leading-tight mb-6"
+            className="text-2xl md:text-3xl font-bold leading-tight mb-4 md:mb-6"
             style={{ color: 'var(--apple-text)' }}
           >
             {article.title}

@@ -434,3 +434,178 @@ textarea.apple-input {
 .article-content .callout-quote .callout-title {
   color: var(--apple-gray-6);
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  /* Adjust button padding for mobile */
+  .apple-button,
+  .apple-button-secondary {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  /* Adjust input padding for mobile */
+  .apple-input {
+    padding: 10px 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Adjust article content for mobile */
+  .article-content {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .article-content h1 {
+    font-size: 1.75em;
+  }
+
+  .article-content h2 {
+    font-size: 1.4em;
+  }
+
+  .article-content h3 {
+    font-size: 1.2em;
+  }
+
+  .article-content pre {
+    padding: 1em;
+    font-size: 0.85em;
+  }
+
+  .article-content img {
+    margin: 1em 0;
+  }
+
+  /* Adjust list item padding for mobile */
+  .apple-list-item {
+    padding: 14px 12px;
+  }
+
+  /* Better touch targets */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Mobile-specific utilities */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+}
+
+/* Prevent text selection on mobile for better UX */
+@media (max-width: 768px) {
+  .no-select-mobile {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+/* Mobile navigation overlay */
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 85%;
+  max-width: 320px;
+  background: var(--apple-card-bg);
+  z-index: 50;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.mobile-drawer.active {
+  transform: translateX(0);
+}
+
+/* Improve tap highlight on mobile */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: rgba(0, 122, 255, 0.1);
+  }
+
+  /* Prevent pull-to-refresh on mobile */
+  body {
+    overscroll-behavior-y: contain;
+  }
+
+  /* Better scrolling on iOS */
+  .overflow-y-auto,
+  .overflow-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Improve button touch feedback */
+  button:active,
+  .apple-button:active,
+  .apple-button-secondary:active {
+    opacity: 0.7;
+  }
+
+  /* Improve list item touch feedback */
+  .apple-list-item:active {
+    opacity: 0.8;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  @media (max-width: 768px) {
+    header {
+      padding-left: max(20px, env(safe-area-inset-left));
+      padding-right: max(20px, env(safe-area-inset-right));
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+
+    .mobile-drawer {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    /* Bottom navigation safe area */
+    .md\:hidden.apple-card:last-child {
+      padding-bottom: max(8px, env(safe-area-inset-bottom));
+    }
+  }
+}
