@@ -18,6 +18,22 @@
   --apple-hover: rgba(0, 0, 0, 0.04);
 }
 
+[data-theme="dark"] {
+  --apple-blue: #0A84FF;
+  --apple-gray: #1C1C1E;
+  --apple-gray-2: #2C2C2E;
+  --apple-gray-3: #3A3A3C;
+  --apple-gray-4: #48484A;
+  --apple-gray-5: #636366;
+  --apple-gray-6: #8E8E93;
+  --apple-text: #FFFFFF;
+  --apple-text-secondary: #EBEBF5;
+  --apple-text-tertiary: #EBEBF599;
+  --apple-separator: rgba(84, 84, 88, 0.65);
+  --apple-card-bg: #2C2C2E;
+  --apple-hover: rgba(255, 255, 255, 0.08);
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
