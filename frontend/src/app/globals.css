@@ -1,0 +1,420 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --apple-blue: #007AFF;
+  --apple-gray: #F2F2F7;
+  --apple-gray-2: #E5E5EA;
+  --apple-gray-3: #D1D1D6;
+  --apple-gray-4: #C7C7CC;
+  --apple-gray-5: #AEAEB2;
+  --apple-gray-6: #8E8E93;
+  --apple-text: #000000;
+  --apple-text-secondary: #3C3C43;
+  --apple-text-tertiary: #8E8E93;
+  --apple-separator: rgba(60, 60, 67, 0.12);
+  --apple-card-bg: #FFFFFF;
+  --apple-hover: rgba(0, 0, 0, 0.04);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--apple-text);
+  background: var(--apple-gray);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apple-style scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--apple-gray-4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--apple-gray-5);
+}
+
+/* Apple-style button */
+.apple-button {
+  background: var(--apple-blue);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.apple-button:hover {
+  background: #0051D5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.apple-button:active {
+  transform: scale(0.98);
+}
+
+.apple-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.apple-button-secondary {
+  background: var(--apple-gray-2);
+  color: var(--apple-text);
+  border-radius: 12px;
+}
+
+.apple-button-secondary:hover {
+  background: var(--apple-gray-3);
+}
+
+/* Apple-style input */
+.apple-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--apple-gray-3);
+  border-radius: 12px;
+  font-size: 15px;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.apple-input:focus {
+  outline: none;
+  border-color: var(--apple-blue);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+/* Apple-style textarea */
+textarea.apple-input {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Apple-style card */
+.apple-card {
+  background: var(--apple-card-bg);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Apple-style list item */
+.apple-list-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--apple-separator);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.apple-list-item:hover {
+  background: var(--apple-hover);
+}
+
+.apple-list-item:active {
+  background: var(--apple-gray-2);
+}
+
+.apple-list-item:last-child {
+  border-bottom: none;
+}
+
+/* Article Content Styles - Apple Typography */
+.article-content {
+  color: var(--apple-text);
+  font-size: 17px;
+  line-height: 1.7;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.article-content p {
+  margin-bottom: 1.25em;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+  color: var(--apple-text);
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  line-height: 1.3;
+}
+
+.article-content h1 {
+  font-size: 2em;
+}
+
+.article-content h2 {
+  font-size: 1.5em;
+}
+
+.article-content h3 {
+  font-size: 1.25em;
+}
+
+.article-content h4 {
+  font-size: 1.1em;
+}
+
+.article-content a {
+  color: var(--apple-blue);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.article-content a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 1.5em 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-content blockquote {
+  border-left: 4px solid var(--apple-blue);
+  padding-left: 1.5em;
+  margin: 1.5em 0;
+  color: var(--apple-text-secondary);
+  font-style: italic;
+  background: var(--apple-gray);
+  padding: 1em 1.5em;
+  border-radius: 8px;
+}
+
+.article-content code {
+  background: var(--apple-gray-2);
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+  color: var(--apple-text);
+}
+
+.article-content pre {
+  background: var(--apple-gray-2);
+  padding: 1.25em;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  border: 1px solid var(--apple-gray-3);
+}
+
+.article-content pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.9em;
+}
+
+.article-content ul,
+.article-content ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+.article-content li {
+  margin-bottom: 0.5em;
+}
+
+.article-content ul li {
+  list-style-type: disc;
+}
+
+.article-content ol li {
+  list-style-type: decimal;
+}
+
+.article-content hr {
+  border: none;
+  border-top: 1px solid var(--apple-separator);
+  margin: 2em 0;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--apple-separator);
+}
+
+.article-content th,
+.article-content td {
+  padding: 0.75em 1em;
+  text-align: left;
+  border-bottom: 1px solid var(--apple-separator);
+}
+
+.article-content th {
+  background: var(--apple-gray);
+  font-weight: 600;
+  color: var(--apple-text);
+}
+
+.article-content tr:last-child td {
+  border-bottom: none;
+}
+
+.article-content strong,
+.article-content b {
+  font-weight: 600;
+  color: var(--apple-text);
+}
+
+.article-content em,
+.article-content i {
+  font-style: italic;
+}
+
+.article-content figure {
+  margin: 1.5em 0;
+}
+
+.article-content figcaption {
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--apple-text-tertiary);
+  margin-top: 0.5em;
+}
+
+/* Callout Styles - Obsidian-like with Apple Design */
+.article-content .callout {
+  padding: 1em 1.25em;
+  margin: 1.5em 0;
+  border-radius: 12px;
+  border-left: 4px solid;
+  background: var(--apple-gray);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.article-content .callout-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 600;
+  margin-bottom: 0.75em;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+.article-content .callout-title strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.article-content .callout > div:last-child {
+  margin-bottom: 0;
+}
+
+.article-content .callout p {
+  margin-bottom: 0.5em;
+}
+
+.article-content .callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Callout types with Apple colors */
+.article-content .callout-note {
+  border-left-color: var(--apple-blue);
+  background: rgba(0, 122, 255, 0.08);
+}
+
+.article-content .callout-note .callout-title {
+  color: var(--apple-blue);
+}
+
+.article-content .callout-info {
+  border-left-color: #5AC8FA;
+  background: rgba(90, 200, 250, 0.08);
+}
+
+.article-content .callout-info .callout-title {
+  color: #5AC8FA;
+}
+
+.article-content .callout-tip {
+  border-left-color: #34C759;
+  background: rgba(52, 199, 89, 0.08);
+}
+
+.article-content .callout-tip .callout-title {
+  color: #34C759;
+}
+
+.article-content .callout-success {
+  border-left-color: #34C759;
+  background: rgba(52, 199, 89, 0.08);
+}
+
+.article-content .callout-success .callout-title {
+  color: #34C759;
+}
+
+.article-content .callout-warning {
+  border-left-color: #FF9500;
+  background: rgba(255, 149, 0, 0.08);
+}
+
+.article-content .callout-warning .callout-title {
+  color: #FF9500;
+}
+
+.article-content .callout-danger {
+  border-left-color: #FF3B30;
+  background: rgba(255, 59, 48, 0.08);
+}
+
+.article-content .callout-danger .callout-title {
+  color: #FF3B30;
+}
+
+.article-content .callout-question {
+  border-left-color: #AF52DE;
+  background: rgba(175, 82, 222, 0.08);
+}
+
+.article-content .callout-question .callout-title {
+  color: #AF52DE;
+}
+
+.article-content .callout-quote {
+  border-left-color: var(--apple-gray-5);
+  background: rgba(142, 142, 147, 0.08);
+}
+
+.article-content .callout-quote .callout-title {
+  color: var(--apple-gray-6);
+}
